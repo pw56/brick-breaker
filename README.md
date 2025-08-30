@@ -10,8 +10,13 @@ ChatGPTを用いて作成したウェブアプリのブロック崩しです。
 2. ボールを落とした時点でゲームオーバー
 3. ボールが全て破壊された時点でゲームクリア
 
-## 使用素材
-- 効果音: [効果音ラボ](https://soundeffect-lab.info)
-
 ## ウェブページ
 [ゲームのページ](https://pw56.github.io/brick-breaker)
+
+## 使用プログラミング言語
+- HTML
+- CSS
+- JavaScript
+
+## 使用素材
+- 効果音: [効果音ラボ](https://soundeffect-lab.info)
