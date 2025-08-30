@@ -19,4 +19,5 @@ ChatGPTを用いて作成したウェブアプリのブロック崩しです。
 - JavaScript
 
 ## 使用素材
-- 効果音: [効果音ラボ](https://soundeffect-lab.info)
+- 効果音:
+> [効果音ラボ](https://soundeffect-lab.info)
