@@ -1,5 +1,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+const startButton = document.getElementById('startButton');
+const retryButton = document.getElementById('retryButton');
 
 // canvasのサイズをブラウザ全域に合わせる
 canvas.width = window.innerWidth;
@@ -25,10 +27,6 @@ let ballSpeed = baseBallSpeed * 1.5; // 従来の1.5倍
 let ballSpeedX;
 let ballSpeedY;
 
-// 効果音
-const crushSound = new Audio('crush.mp3');
-
-// ブロックの設定
 let blockWidth = canvas.width * 0.05;
 let blockHeight = canvas.height * 0.025;
 let rows = 10;
@@ -44,10 +42,22 @@ let score = 0;
 let isGameOver = false;
 let isGameClear = false;
 
-// キーイベント
 let rightArrowPressed = false;
 let leftArrowPressed = false;
 
+// スタートボタンが押された時にゲームを開始
+function startGame() {
+    startButton.style.display = 'none';  // スタートボタンを非表示
+    retryButton.style.display = 'none';  // リトライボタンを非表示
+    canvas.style.display = 'block';      // キャンバスを表示
+    createBlocks();                      // ブロック作成
+    initBall();                           // ボール初期化
+    gameLoop();                          // ゲームループを開始
+}
+
+startButton.addEventListener('click', startGame);
+
+// キーイベント
 document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') {
         rightArrowPressed = true;
@@ -132,8 +142,6 @@ function collisionDetection() {
                     ballSpeedY = -ballSpeedY;
                     b.status = 0;
                     score++;
-                    crushSound.currentTime = 0;
-                    crushSound.play(); // ブロック破壊時に音を再生
                     if (score === rows * cols) {
                         isGameClear = true;
                     }
@@ -225,11 +233,16 @@ function gameLoop() {
         requestAnimationFrame(gameLoop);
     } else if (isGameOver) {
         drawGameOver();
+        retryButton.style.display = 'block'; // ゲームオーバー時にリトライボタンを表示
     } else if (isGameClear) {
         drawGameClear();
+        retryButton.style.display = 'block'; // ゲームクリア時にリトライボタンを表示
     }
 }
 
-createBlocks();
-initBall();
-gameLoop();
+retryButton.addEventListener('click', () => {
+    resetGame();
+    retryButton.style.display = 'none'; // リトライボタンを非表示
+    startButton.style.display = 'none';  // スタートボタンを非表示
+    startGame(); // ゲームを再開
+});
